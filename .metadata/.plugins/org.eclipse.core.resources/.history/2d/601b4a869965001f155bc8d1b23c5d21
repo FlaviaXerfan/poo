@@ -1,0 +1,19 @@
+package diversos;
+
+import javax.swing.JOptionPane;
+
+public class Teste {
+	public static void main(String[] args) {
+		// comentário
+		/*final int valor = 100;
+		double calculo = 0;
+		boolean achei = false;
+		char estadoCivil = 'S'; */
+		String nome = "";
+		System.out.println("Hello World!");
+		System.out.println ("Java!" + nome);
+		JOptionPane.showMessageDialog(null, "Hello World!");
+		nome  = JOptionPane.showInputDialog("Digite seu nome:");
+		JOptionPane.showMessageDialog(null, nome);
+	}
+}
