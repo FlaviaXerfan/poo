@@ -1,0 +1,196 @@
+
+VENDEDOR
+
+package Exercicio;
+
+public class Vendedor {
+
+	protected String nome;
+	protected String cpf;
+
+	public Vendedor(String nome, String cpf) {
+
+		this.nome = nome;
+		this.cpf = cpf;
+	}
+
+	@Override
+	public String toString() {
+		return "nome " + nome;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+}
+
+------------------------------------------------------------------
+
+FIXO
+
+package Exercicio;
+
+public class Fixo extends Vendedor {
+
+	private Double salarioBase;
+	private Double comissao;
+	private Double salarioBruto;
+
+	public Fixo(String nome, String cpf, Double salarioBase, Double comissao) {
+		super(nome, cpf);
+		this.salarioBase = salarioBase;
+		this.comissao = comissao;
+		this.salarioBruto = salarioBase;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "\nsalario Bruto: " + salarioBruto;
+	}
+
+	public Double getSalarioBase() {
+		return salarioBase;
+	}
+
+	public void setSalarioBase(Double salarioBase) {
+		this.salarioBase = salarioBase;
+	}
+
+	public Double getcomissao() {
+		return comissao;
+	}
+
+	public void setcomissao(Double comissao) {
+		this.comissao = comissao;
+	}
+
+	public Double getSalarioBruto() {
+		return salarioBruto;
+	}
+
+	public void setSalarioBruto(Double salarioBruto) {
+		this.salarioBruto = salarioBruto;
+	}
+
+	public void calcularSalario(Double valorVenda) {
+		salarioBruto += valorVenda * comissao;
+
+	}
+
+}
+
+------------------------------------------------------------------------
+
+FREE LANCER
+
+package Exercicio;
+
+public class FreeLancer extends Vendedor {
+	private Integer diasTrabalhados;
+	private Double valorDia;
+
+	public FreeLancer(String nome, String cpf, Integer diasTrabalhados, Double valorDia) {
+		super(nome, cpf);
+		this.diasTrabalhados = diasTrabalhados;
+		this.valorDia = valorDia;
+	}
+
+	@Override
+	public String toString() {
+		return "FreeLancer [toString()=" + super.toString() + ", diasTrabalhados=" + diasTrabalhados + ", valorDia="
+				+ valorDia + "]";
+	}
+
+	public Integer getDiasTrabalhados() {
+		return diasTrabalhados;
+	}
+
+	public void setDiasTrabalhados(Integer diasTrabalhados) {
+		this.diasTrabalhados = diasTrabalhados;
+	}
+
+	public Double getValorDia() {
+		return valorDia;
+	}
+
+	public void setValorDia(Double valorDia) {
+		this.valorDia = valorDia;
+	}
+
+}
+
+
+--------------------------------------------------------------------------------
+
+TESTE VENDEDOR
+
+package Exercicio;
+
+import java.util.Scanner;
+
+public class TesteVendedor {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+
+		Fixo f1 = new Fixo("Joana", "1234567890", 2000., 0.03);
+		Fixo f2 = new Fixo("Maria", "9876543219", 2000., 0.03);
+
+		char opcao;
+		Double valorVenda;
+		Double total = 0.;
+
+		System.out.println("Sistema de venda:");
+		
+		do {
+			System.out.println("Vendedores:\n1-Joana\n2-Maria");
+			System.out.println("Escolha o vendedor:");
+			opcao = sc.next().charAt(0);
+			
+			switch (opcao) {
+			case '1':
+				System.out.println("Digite o valor da venda: ");
+				valorVenda = sc.nextDouble();
+				total += valorVenda;
+				f1.calcularSalario(valorVenda);
+				break;
+			case '2':
+				System.out.println("Digite o valor da venda: ");
+				valorVenda = sc.nextDouble();
+				total += valorVenda;
+				f2.calcularSalario(valorVenda);
+				break;
+			default:
+				break;
+			}
+
+			System.out.println((opcao == '1' || opcao == '2' ? "Deseja encerrar o programa?" : "Opção inválida"));
+			opcao = (opcao == '1' || opcao == '2' ? sc.next().charAt(0) : 'N');
+			opcao = Character.toUpperCase(opcao);
+
+		} while (opcao != 'S');
+
+		sc.close();
+
+		System.out.println("Salário dos vendedores: ");
+		System.out.println(f1);
+		System.out.println(f2);
+		System.out.println("Total vendido: R$ " + total);
+	}
+
+}
+
+
